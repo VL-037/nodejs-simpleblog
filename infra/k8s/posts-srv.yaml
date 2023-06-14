@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-srv
+spec:
+  type: NodePort # for development
+  selector:
+    app: posts # matches template.metadata.lables
+  ports:
+    - name: posts # only for logging purpose
+      protocol: TCP
+      port: 4000 # port for Node Port service, could be random
+      targetPort: 4000 # our container port
