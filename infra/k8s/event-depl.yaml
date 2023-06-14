@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: event
+  template:
+    metadata:
+      labels:
+        app: event
+    spec:
+      containers:
+        - name: event
+          image: vl037/event
+
+# kubectl apply -f posts-depl.yaml
+# kubectl rollout restart deployment [depl_name]
