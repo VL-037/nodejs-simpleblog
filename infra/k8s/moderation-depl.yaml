@@ -1,34 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: event-depl
+  name: moderation-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: event
+      app: moderation
   template:
     metadata:
       labels:
-        app: event
+        app: moderation
     spec:
       containers:
-        - name: event
-          image: vl037/event
+        - name: moderation
+          image: vl037/moderation
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: event-srv
+  name: moderation-srv
 spec:
   # type: ClusterIP # could be excluded since it's the default 
   selector:
-    app: event # matches template.metadata.lables
+    app: moderation # matches template.metadata.lables
   ports:
-    - name: event # only for logging purpose
+    - name: moderation # only for logging purpose
       protocol: TCP
-      port: 4005 # port for ClusterIP Service, could be random
-      targetPort: 4005 # our container port
+      port: 4003 # port for ClusterIP Service, could be random
+      targetPort: 4003 # our container port
 
 # kubectl apply -f [xxx].yaml
 # kubectl rollout restart deployment [depl_name]

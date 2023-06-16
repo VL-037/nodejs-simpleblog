@@ -15,6 +15,20 @@ spec:
       containers:
         - name: posts
           image: vl037/posts
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-clusterip-srv
+spec:
+  # type: ClusterIP # could be excluded since it's the default 
+  selector:
+    app: posts # matches template.metadata.lables
+  ports:
+    - name: posts # only for logging purpose
+      protocol: TCP
+      port: 4000 # port for ClusterIP Service, could be random
+      targetPort: 4000 # our container port
 
-# kubectl apply -f posts-depl.yaml
+# kubectl apply -f [xxx].yaml
 # kubectl rollout restart deployment [depl_name]
