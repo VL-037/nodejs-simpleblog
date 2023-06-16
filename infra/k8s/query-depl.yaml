@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: query-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: query
+  template:
+    metadata:
+      labels:
+        app: query
+    spec:
+      containers:
+        - name: query
+          image: vl037/query
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: query-srv
+spec:
+  # type: ClusterIP # could be excluded since it's the default 
+  selector:
+    app: query # matches template.metadata.lables
+  ports:
+    - name: query # only for logging purpose
+      protocol: TCP
+      port: 4002 # port for ClusterIP Service, could be random
+      targetPort: 4002 # our container port
+
+# kubectl apply -f [xxx].yaml
+# kubectl rollout restart deployment [depl_name]
